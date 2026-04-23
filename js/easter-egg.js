@@ -1,7 +1,6 @@
 // ============================================================
-//  AZÚL ALCATRAZ — El Calabozo
-//  js/easter-egg.js · Easter egg de consola ASCII
-//  Noctis Poenam · MMXXVI
+//  js/easter-egg.js · Well done, take an ASCII
+//  AZÚL ALCATRAZ — Noctis Poenam · MMXXVI
 // ============================================================
 
 console.log(
