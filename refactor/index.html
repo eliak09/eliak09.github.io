@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azúl Alcatraz — The Well Tempered Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jacquard+24&family=MedievalSharp&family=Space+Grotesk:wght@300;400;500&family=Press+Start+2P&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!--
+        CSS: Un solo <link> apunta a main.css.
+        main.css importa los módulos en el orden correcto de cascada:
+        variables → reset → animations → textures → layout → components
+    -->
+    <link rel="stylesheet" href="./css/main.css">
+
+    <!-- GSAP debe cargarse en el <head> para que gate-animation.js lo encuentre -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+
+    <!-- Intro: The Gate -->
+    <div id="gate-screen">
+
+        <!-- Telarañas SVG esquinas superiores -->
+        <svg class="cobweb cobweb--tl" width="200" height="200" viewBox="0 0 200 200" fill="none">
+            <path d="M0,0 L90,0 M0,0 L0,90 M0,0 L70,70" stroke="rgba(200,200,200,0.28)" stroke-width="0.8"/>
+            <path d="M45,0 Q22,22 0,45" stroke="rgba(200,200,200,0.22)" stroke-width="0.6" fill="none"/>
+            <path d="M90,0 Q55,35 20,70 Q40,90 0,90" stroke="rgba(200,200,200,0.18)" stroke-width="0.6" fill="none"/>
+            <path d="M140,0 Q90,50 45,95 Q20,110 0,140" stroke="rgba(200,200,200,0.12)" stroke-width="0.5" fill="none"/>
+            <circle cx="45" cy="12" r="1.2" fill="rgba(200,200,200,0.45)"/>
+            <circle cx="12" cy="45" r="1.2" fill="rgba(200,200,200,0.45)"/>
+            <circle cx="30" cy="30" r="0.9"  fill="rgba(200,200,200,0.3)"/>
+        </svg>
+        <svg class="cobweb cobweb--tr" width="200" height="200" viewBox="0 0 200 200" fill="none">
+            <path d="M0,0 L90,0 M0,0 L0,90 M0,0 L70,70" stroke="rgba(200,200,200,0.28)" stroke-width="0.8"/>
+            <path d="M45,0 Q22,22 0,45" stroke="rgba(200,200,200,0.22)" stroke-width="0.6" fill="none"/>
+            <path d="M90,0 Q55,35 20,70 Q40,90 0,90" stroke="rgba(200,200,200,0.18)" stroke-width="0.6" fill="none"/>
+            <circle cx="45" cy="12" r="1.2" fill="rgba(200,200,200,0.45)"/>
+            <circle cx="12" cy="45" r="1.2" fill="rgba(200,200,200,0.45)"/>
+        </svg>
+
+        <svg class="cobweb cobweb--bl" width="160" height="160" viewBox="0 0 160 160" fill="none">
+    <path d="M0,0 L70,0 M0,0 L0,70 M0,0 L55,55" stroke="rgba(200,200,200,0.2)" stroke-width="0.7"/>
+    <path d="M35,0 Q18,18 0,35" stroke="rgba(200,200,200,0.15)" stroke-width="0.5" fill="none"/>
+    <circle cx="30" cy="9" r="1" fill="rgba(200,200,200,0.35)"/>
+</svg>
+<svg class="cobweb cobweb--br" width="160" height="160" viewBox="0 0 160 160" fill="none">
+    <path d="M0,0 L70,0 M0,0 L0,70 M0,0 L55,55" stroke="rgba(200,200,200,0.2)" stroke-width="0.7"/>
+    <path d="M35,0 Q18,18 0,35" stroke="rgba(200,200,200,0.15)" stroke-width="0.5" fill="none"/>
+    <circle cx="30" cy="9" r="1" fill="rgba(200,200,200,0.35)"/>
+</svg>
+
+        <!-- Antorcha izquierda -->
+        <div class="torch-container top-left">
+            <canvas id="canvas-tl" class="torch-canvas"></canvas>
+            <div class="torch-base">
+                <svg viewBox="0 0 16 40" width="16" height="40" xmlns="http://www.w3.org/2000/svg" style="image-rendering:pixelated">
+                    <rect x="3"  y="0"  width="10" height="28" fill="#3d2b10"/>
+                    <rect x="3"  y="0"  width="2"  height="28" fill="#5a3e1a"/>
+                    <rect x="11" y="0"  width="2"  height="28" fill="#2a1a08"/>
+                    <rect x="1"  y="26" width="14" height="6"  fill="#333"/>
+                    <rect x="0"  y="32" width="16" height="8"  fill="#1a1a1a"/>
+                    <rect x="0"  y="32" width="2"  height="8"  fill="#444"/>
+                </svg>
+            </div>
+            <div class="torch-glow"></div>
+        </div>
+
+        <!-- Antorcha derecha -->
+        <div class="torch-container top-right">
+            <canvas id="canvas-tr" class="torch-canvas"></canvas>
+            <div class="torch-base">
+                <svg viewBox="0 0 16 40" width="16" height="40" xmlns="http://www.w3.org/2000/svg" style="image-rendering:pixelated">
+                    <rect x="3"  y="0"  width="10" height="28" fill="#3d2b10"/>
+                    <rect x="3"  y="0"  width="2"  height="28" fill="#5a3e1a"/>
+                    <rect x="11" y="0"  width="2"  height="28" fill="#2a1a08"/>
+                    <rect x="1"  y="26" width="14" height="6"  fill="#333"/>
+                    <rect x="0"  y="32" width="16" height="8"  fill="#1a1a1a"/>
+                    <rect x="0"  y="32" width="2"  height="8"  fill="#444"/>
+                </svg>
+            </div>
+            <div class="torch-glow"></div>
+        </div>
+
+        <!-- Viñeta oscura -->
+        <div class="vignette"></div>
+
+        <div class="gate-center">
+            <button id="start-btn">START</button>
+        </div>
+
+        <!-- Brazos en 1ra Persona (SVG pixel-art) -->
+        <div id="arms-container">
+            <svg id="arm-left" class="arm" viewBox="0 0 120 200" xmlns="http://www.w3.org/2000/svg">
+                <rect x="20" y="80"  width="60" height="80" fill="#2a2a2a"/>
+                <rect x="20" y="80"  width="8"  height="80" fill="#3a3a3a"/>
+                <rect x="72" y="80"  width="8"  height="80" fill="#1a1a1a"/>
+                <rect x="20" y="100" width="60" height="3"  fill="#1a1a1a"/>
+                <rect x="20" y="120" width="60" height="3"  fill="#1a1a1a"/>
+                <rect x="20" y="140" width="60" height="3"  fill="#1a1a1a"/>
+                <rect x="24" y="88"  width="6"  height="6"  fill="#555"/>
+                <rect x="70" y="88"  width="6"  height="6"  fill="#555"/>
+                <rect x="24" y="148" width="6"  height="6"  fill="#555"/>
+                <rect x="70" y="148" width="6"  height="6"  fill="#555"/>
+                <rect x="28" y="96"  width="44" height="4"  fill="#CC0000" opacity="0.7"/>
+                <rect x="28" y="158" width="44" height="30" fill="#222"/>
+                <rect x="28" y="158" width="6"  height="30" fill="#333"/>
+                <rect x="30" y="180" width="40" height="20" fill="#1a1a1a"/>
+            </svg>
+            <svg id="arm-right" class="arm" viewBox="0 0 120 200" xmlns="http://www.w3.org/2000/svg" style="transform:scaleX(-1)">
+                <rect x="20" y="80"  width="60" height="80" fill="#2a2a2a"/>
+                <rect x="20" y="80"  width="8"  height="80" fill="#3a3a3a"/>
+                <rect x="72" y="80"  width="8"  height="80" fill="#1a1a1a"/>
+                <rect x="20" y="100" width="60" height="3"  fill="#1a1a1a"/>
+                <rect x="20" y="120" width="60" height="3"  fill="#1a1a1a"/>
+                <rect x="20" y="140" width="60" height="3"  fill="#1a1a1a"/>
+                <rect x="24" y="88"  width="6"  height="6"  fill="#555"/>
+                <rect x="70" y="88"  width="6"  height="6"  fill="#555"/>
+                <rect x="24" y="148" width="6"  height="6"  fill="#555"/>
+                <rect x="70" y="148" width="6"  height="6"  fill="#555"/>
+                <rect x="28" y="96"  width="44" height="4"  fill="#CC0000" opacity="0.7"/>
+                <rect x="28" y="158" width="44" height="30" fill="#222"/>
+                <rect x="28" y="158" width="6"  height="30" fill="#333"/>
+                <rect x="30" y="180" width="40" height="20" fill="#1a1a1a"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Main Content: Dungeon Home -->
+    <main id="dungeon-home">
+
+        <div id="scroll-progress"></div>
+
+        <nav class="dungeon-nav">
+        <a href="#hero" class="nav-brand">Azúl Alcatraz</a>
+        <ul class="nav-links">
+            <li><a href="#lore"     class="nav-link">Lore</a></li>
+            <li><a href="#quests"   class="nav-link">Quests</a></li>
+            <li><a href="#arsenal"  class="nav-link">Arsenal</a></li>
+            <li><a href="#grimorio" class="nav-link">Grimorio</a></li>
+            <li><a href="#scroll"   class="nav-link">Pergamino</a></li>
+        </ul>
+        </nav>
+
+        <section class="hero-section">
+            <span class="hero-eyebrow">Desarrollo Frontend | UX/UI</span>
+            <h1 class="hero-name">Azúl Alcatraz</h1>
+            <p class="hero-tagline">Soy un instrumento del hálito universal... También hago interfaces.<br>
+          <strong><br>Arquetipando dimensiones en el vacío digital</strong></p>
+            <div class="pixel-divider"></div>
+            <div class="content-body">
+                <a href="#quests" class="cta-btn">QUESTS COMPLETADAS</a>
+            </div>
+        </section>
+
+        <div class="arch-sep"><span>✦ Lore ✦</span></div>
+
+        <!-- LORE -->
+        <section id="lore" class="dungeon-section">
+            <div class="reveal">
+                <span class="section-tag">// Capítulo I</span>
+                <h2 class="section-title">Lore</h2>
+            </div>
+            <div class="lore-grid">
+                <div class="lore-text reveal">
+                    <p>Año <strong>2000</strong>. Un diskette. VirtualBox MS-DOS en W98. The Simpsons Arcade. No había retorno.</p>
+                    <p>Desde entonces, cada mundo recorrido — <strong>Tomb Raider, Ninja Gaiden, Age of Empires II, Prince of Persia, TrucoTeca</strong> — fue combustible para una pregunta que no dejaba quieto: <em>¿cómo se construye esto?</em></p>
+                    <p>Hoy construyo interfaces. Mañana, mundos enteros.</p>
+                </div>
+                <div class="reveal">
+                    <div class="timeline-item">
+                        <span class="tl-year">2000</span>
+                        <div class="tl-dot"></div>
+                        <p class="tl-text">Primer contacto: MS-DOS. Los Simpsons. La chispa que no se apaga.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="tl-year">2000s</span>
+                        <div class="tl-dot"></div>
+                        <p class="tl-text">Tomb Raider, DOOM, AoE II, Prince of Persia. El amor por los mundos imposibles.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="tl-year">Hoy</span>
+                        <div class="tl-dot"></div>
+                        <p class="tl-text">Front-end developer, diseño de interfaces.</p>
+                    </div>
+                    <div class="timeline-item last">
+                        <span class="tl-year">∞</span>
+                        <div class="tl-dot tl-dot--magic"></div>
+                        <p class="tl-text">Más allá del muro negro, existiré...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="arch-sep"><span>✦ Quests Completadas ✦</span></div>
+
+        <!-- QUESTS -->
+        <section id="quests" class="dungeon-section">
+            <div class="reveal">
+                <span class="section-tag">// Capítulo II</span>
+                <h2 class="section-title">Quests Completadas</h2>
+                <p class="section-lead">Cada una dejó cicatriz y nivel.</p>
+            </div>
+            <div class="quests-grid">
+                <div class="quest-card reveal">
+                    <span class="quest-badge quest-badge--done">Quest Completada</span>
+                    <h3 class="quest-title">Ultra Luxe Club</h3>
+                    <p class="quest-desc">Landing page para un club deportivo de lujo con lore imaginado desde 1881. Creada en 8 horas con 7 aliados. Dirección narrativa, lore completo e imágenes históricas generadas.</p>
+                    <div class="quest-tags">
+                        <span class="quest-tag">HTML</span><span class="quest-tag">CSS</span><span class="quest-tag">JavaScript</span><span class="quest-tag">Bootstrap</span><span class="quest-tag">Lore Design</span>
+                    </div>
+                    <div class="quest-links">
+                        <a href="https://github.com/CrisDRGomez/Hackaton-No.1/" class="quest-link" target="_blank">→ GitHub</a>
+                    </div>
+                </div>
+                <div class="quest-card quest-card--wip reveal">
+                    <span class="quest-badge quest-badge--wip">En progreso...</span>
+                    <h3 class="quest-title">Este Portafolio</h3>
+                    <p class="quest-desc">El calabozo que estás recorriendo ahora mismo. Piedra, fuego pixel-art y código sin gradientes innecesarios.</p>
+                    <div class="quest-tags">
+                        <span class="quest-tag">HTML</span><span class="quest-tag">CSS</span><span class="quest-tag">JavaScript</span><span class="quest-tag">GSAP</span><span class="quest-tag">Canvas API</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="arch-sep"><span>✦ El Arsenal ✦</span></div>
+
+        <!-- ARSENAL -->
+        <section id="arsenal" class="dungeon-section">
+            <div class="reveal">
+                <span class="section-tag">// Capítulo III</span>
+                <h2 class="section-title">El Arsenal</h2>
+            </div>
+            <div class="arsenal-grid">
+                <div class="skill-rune reveal"><span class="rune-name">HTML5</span><div class="rune-bar-track"><div class="rune-bar-fill" data-width="0.85"></div></div><p class="rune-lore">La piedra del calabozo. Todo comienza aquí.</p></div>
+                <div class="skill-rune reveal"><span class="rune-name">CSS3</span><div class="rune-bar-track"><div class="rune-bar-fill" data-width="0.80"></div></div><p class="rune-lore">Las runas que dan forma y color al caos.</p></div>
+                <div class="skill-rune reveal"><span class="rune-name">JavaScript</span><div class="rune-bar-track"><div class="rune-bar-fill" data-width="0.52"></div></div><p class="rune-lore">El hechizo que da vida. Fundamentos dominados.</p></div>
+                <div class="skill-rune reveal"><span class="rune-name">Git / GitHub</span><div class="rune-bar-track"><div class="rune-bar-fill" data-width="0.60"></div></div><p class="rune-lore">El grimorio de versiones. Ningún hechizo se pierde.</p></div>
+                <div class="skill-rune reveal"><span class="rune-name">Diseño Narrativo</span><div class="rune-bar-track"><div class="rune-bar-fill" data-width="0.92"></div></div><p class="rune-lore">El hálito universal manifestado en lore.</p></div>
+                <div class="skill-rune reveal"><span class="rune-name">Prompting / AI</span><div class="rune-bar-track"><div class="rune-bar-fill" data-width="0.88"></div></div><p class="rune-lore">Comunicarse con las entidades del éter digital.</p></div>
+            </div>
+        </section>
+
+        <div class="arch-sep"><span>✦ El Grimorio ✦</span></div>
+
+        <!-- GRIMORIO -->
+        <section id="grimorio" class="grimorio-section">
+            <div class="dungeon-section">
+                <div class="grimorio-banner reveal">
+                    <span class="section-tag">// Capítulo IV</span>
+                    <h2 class="section-title">El Grimorio</h2>
+                    <p class="grimorio-sub">Noctis Poenam: The Midnight Mourning Site</p>
+                </div>
+                <div class="grimorio-grid">
+                    <a href="#" class="grimorio-entry reveal">
+                        <span class="entry-date">// Próximamente</span>
+                        <h3 class="entry-title">Por qué DOOM cambió todo</h3>
+                        <p class="entry-excerpt">id Software, el diseño de niveles como arquitectura emocional, y el día que entendí que los mundos se construyen ladrillo a ladrillo.</p>
+                    </a>
+                    <a href="#" class="grimorio-entry reveal">
+                        <span class="entry-date">// Próximamente</span>
+                        <h3 class="entry-title">CSS como lenguaje de hechizos</h3>
+                        <p class="entry-excerpt">No es solo estilo. Es lógica espacial, cascada, especificidad. Un sistema tan profundo como cualquier mecánica de videojuego.</p>
+                    </a>
+                    <a href="#" class="grimorio-entry reveal">
+                        <span class="entry-date">// Próximamente</span>
+                        <h3 class="entry-title">8 horas para invocar un club de 1881</h3>
+                        <p class="entry-excerpt">Cómo diseñamos un lore completo y lanzamos una landing en menos tiempo del que tarda un dragón en despertar.</p>
+                    </a>
+                </div>
+                <div class="grimorio-footer reveal">
+                    <a href="#" class="grimorio-noctis-link">→ Visitar The Midnight Mourning Site</a>
+                </div>
+            </div>
+        </section>
+
+        <div class="arch-sep"><span>✦ Enviar Pergamino ✦</span></div>
+
+        <!-- CONTACTO -->
+        <section id="scroll" class="dungeon-section">
+            <div class="scroll-inner">
+                <div class="reveal">
+                    <span class="section-tag">// Capítulo V</span>
+                    <h2 class="section-title">Enviar Pergamino</h2>
+                </div>
+                <p class="scroll-subtitle reveal">Si llegaste hasta aquí, ya eres uno de los nuestros.<br>Deja tu mensaje. Noctis responderá cuando las runas lo permitan.</p>
+                <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label class="form-label" for="cn">Tu nombre / alias</label>
+                        <input class="form-input" type="text" id="cn" placeholder="Viajero Anónimo" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="ce">Paloma mensajera (email)</label>
+                        <input class="form-input" type="email" id="ce" placeholder="tu@reino.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="cm">El mensaje del pergamino</label>
+                        <textarea class="form-textarea" id="cm" placeholder="Las runas mantendrán tu mensaje a salvo."></textarea>
+                    </div>
+                    <button class="cta-btn form-submit" type="submit">[ Enviar al Éter ]</button>
+                    <p id="form-feedback" class="form-feedback"></p>
+                </form>
+                <div class="social-links reveal">
+                    <a href="https://github.com/eliak09" class="social-link" target="_blank">GitHub</a>
+                    <a href="#" class="social-link">LinkedIn</a>
+                    <a href="#" class="social-link">The Midnight Mourning Site</a>
+                </div>
+            </div>
+        </section>
+
+        <footer class="dungeon-footer">
+            <span>Noctis Poenam - Anno MMXXVI</span>
+        </footer>
+    </main>
+
+    <!--
+        JS: Orden de dependencias estricto (no alterar):
+        1. fire-palette.js  → define FIRE_PALETTE (variable global necesaria para torches.js)
+        2. torches.js       → consume FIRE_PALETTE, arranca los canvas de antorcha
+        3. gate-animation.js → consume gsap (cargado en <head>) y el DOM del gate
+        4. easter-egg.js    → independiente, se ejecuta al final sin bloquear nada
+    -->
+    <script src="./js/fire-palette.js"></script>
+    <script src="./js/torches.js"></script>
+    <script src="./js/gate-animation.js"></script>
+    <script src="./js/scroll-reveal.js"></script>
+    <script src="./js/easter-egg.js"></script>
+</body>
+</html>
