@@ -1,0 +1,50 @@
+/* ============================================================
+   AZÚL ALCATRAZ — El Calabozo
+   textures.css · Fondos 64-bit y telarañas SVG
+   Noctis Poenam · MMXXVI
+============================================================ */
+
+/* ============================================================
+   TEXTURA 64-BIT — patrón de piedra pixelada como SVG inline
+   Se aplica al gate-screen y al dungeon-home
+============================================================ */
+.texture-64bit,
+#gate-screen,
+/* Gate screen — fondo del calabozo (antes de entrar) */
+#gate-screen {
+    background-image: url("/assets/background-gate.png");
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+}
+
+/* Landing — fondo interior del calabozo (después de entrar) */
+#dungeon-home {
+    background-image: url("/assets/background-landing.png");
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+}
+
+/* Clase utilitaria si la necesitas en otros elementos */
+.texture-64bit {
+    background-image: url("/assets/bb7db725-7df6-4050-b995-56bb7e1e5360.png");
+    background-size: cover;
+    background-attachment: scroll;
+}
+
+/* ============================================================
+   COBWEBS — Telarañas SVG esquinas
+============================================================ */
+.cobweb {
+    position: absolute;
+    z-index: 2;
+    opacity: 0.38;
+    pointer-events: none;
+}
+.cobweb--tl { top: 0; left: 0; }
+.cobweb--tr { top: 0; right: 0; transform: scaleX(-1); }
+.cobweb--bl { bottom:0; left:0;  transform: scaleY(-1); }
+.cobweb--br { bottom:0; right:0; transform: scale(-1,-1); }

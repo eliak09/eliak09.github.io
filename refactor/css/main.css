@@ -1,0 +1,20 @@
+/* ============================================================
+   AZÚL ALCATRAZ — El Calabozo
+   main.css · Punto de entrada — importa todos los módulos CSS
+   Noctis Poenam · MMXXVI
+
+   ORDEN DE CASCADA (no alterar):
+   1. variables  → tokens disponibles para todos los demás
+   2. reset      → normalización global
+   3. animations → @keyframes referenciados por layout y components
+   4. textures   → fondos que usan variables
+   5. layout     → estructura de página
+   6. components → piezas reutilizables de UI
+============================================================ */
+
+@import url('./variables.css');
+@import url('./reset.css');
+@import url('./animations.css');
+@import url('./textures.css');
+@import url('./layout.css');
+@import url('./components.css');

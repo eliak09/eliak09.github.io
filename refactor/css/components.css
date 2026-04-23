@@ -1,0 +1,606 @@
+/* ============================================================
+   AZÚL ALCATRAZ — El Calabozo
+   components.css · Componentes de UI reutilizables
+   Noctis Poenam · MMXXVI
+============================================================ */
+
+/* ============================================================
+   ANTORCHAS — Layout + Glow ambiental
+============================================================ */
+.torch-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 5;
+}
+
+.top-left  { top: 8%;  left: 6%; }
+.top-right { top: 8%;  right: 6%; }
+.bottom-left  { bottom: 8%; left:  6%; }
+.bottom-right { bottom: 8%; right: 6%; }
+
+.torch-canvas {
+    width: 64px;
+    height: 80px;
+    background: transparent;
+    image-rendering: pixelated;
+    display: block;
+}
+
+.torch-base {
+    display: flex;
+    justify-content: center;
+    image-rendering: pixelated;
+    margin-top: -2px;
+}
+
+/* Halo de luz ambiental pulsante */
+.torch-glow {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,120,0,0.22) 0%, rgba(255,60,0,0.06) 50%, transparent 70%);
+    pointer-events: none;
+    animation: glow-flicker 1.6s ease-in-out infinite alternate;
+    z-index: 4;
+}
+
+/* ============================================================
+   BOTÓN DE INICIO
+============================================================ */
+.gate-center {
+    position: relative;
+    z-index: 10;
+}
+
+#start-btn {
+    font-family: var(--font-ui);
+    font-size: 12px;
+    padding: 20px 40px;
+    background: transparent;
+    border: 3px solid var(--magic);
+    color: var(--magic);
+    cursor: inherit;
+    transition: background 0.1s, color 0.1s, box-shadow 0.1s, transform 0.1s;
+    /* Pixelado: sin border-radius, sin suavizado */
+    border-radius: 0;
+    letter-spacing: 0.2em;
+    /* Parpadeo idle de borde mágico */
+    animation: btn-idle 2.4s steps(2) infinite;
+    image-rendering: pixelated;
+}
+
+#start-btn:hover {
+    background: var(--magic);
+    color: #fff;
+    box-shadow: 0 0 32px var(--magic-glow), 0 0 60px rgba(117,0,255,0.3);
+    transform: scale(1.04);
+    animation: none;
+}
+
+/* ============================================================
+   BRAZOS EN PRIMERA PERSONA
+============================================================ */
+#arms-container {
+    position: absolute;
+    bottom: -200px;
+    left: 0;
+    width: 100%;
+    height: 280px;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 12;
+}
+
+.arm {
+    width: 22%;
+    height: 100%;
+    image-rendering: pixelated;
+}
+
+/* ============================================================
+   HERO — Tipografía y elementos
+============================================================ */
+.hero-eyebrow {
+  font-family: var(--font-ui);
+  font-size: clamp(0.90rem, 1.5vw, 0.90rem);
+  color: var(--blood);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.hero-name {
+    font-family: var(--font-hero);
+    font-size: clamp(5rem, 15vw, 10rem);
+    color: var(--magic);
+    line-height: 0.88;
+    margin-bottom: 8px;
+    text-shadow: 0 0 80px rgba(117,0,255,0.15), 0 4px 0 #000;
+    /* Glitch sutil pixel-art en idle */
+    animation: hero-glitch 0.75s steps(1) infinite;
+}
+
+.hero-tagline {
+    font-family: var(--font-title);
+    font-size: 1.5rem;
+    color: #9C9C9C;
+    text-align: center;
+}
+
+.hero-tagline strong { color: var(--text); }
+
+.content-body {
+    font-family: var(--font-title);
+    max-width: 600px;
+    margin-top: 40px;
+    text-align: center;
+    font-weight: 300;
+    line-height: 1.6;
+}
+
+/* Divisor pixelado con animación de scan */
+.pixel-divider {
+    width: 515px;
+    height: 4px;
+    background: var(--blood);
+    margin: 20px auto 28px;
+    position: relative;
+    overflow: hidden;
+}
+
+.pixel-divider::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -40%;
+    width: 35%;
+    height: 100%;
+    background: rgba(255,255,255,0.5);
+    animation: scan-line 2.25s steps(32) infinite;
+}
+
+/* ============================================================
+   CTA BUTTON
+============================================================ */
+.cta-btn {
+    display: inline-block;
+    font-family: var(--font-ui);
+    font-size: clamp(0.42rem, 1vw, 0.55rem);
+    color: var(--text);
+    border: 2px solid var(--magic);
+    padding: 14px 28px;
+    text-decoration: none;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.2s;
+    cursor: none;
+    background: transparent;
+    border-radius: 0;
+}
+
+.cta-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--magic);
+    transform: translateX(-101%);
+    transition: transform 0.25s steps(6);
+    z-index: -1;
+}
+
+.cta-btn:hover::before { transform: translateX(0); }
+.cta-btn:hover { color: #fff; box-shadow: 0 0 22px var(--magic-glow); }
+
+/* ============================================================
+   SECCIONES — Tipografía compartida
+============================================================ */
+.section-tag {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--blood);
+    letter-spacing: 0.2em;
+    display: block;
+    margin-bottom: 8px;
+    opacity: 0.8;
+}
+
+.section-title {
+    font-family: var(--font-title);
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 48px;
+}
+
+.section-lead {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-top: -36px;
+    margin-bottom: 48px;
+}
+
+/* ============================================================
+   LORE / TIMELINE
+============================================================ */
+.lore-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+}
+
+.lore-text p {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+}
+
+.lore-text p strong { color: var(--text); }
+.lore-text p em     { color: var(--text); font-style: italic; }
+
+.timeline-item {
+    display: flex;
+    gap: 14px;
+    padding-bottom: 24px;
+    position: relative;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 37px; top: 26px; bottom: 0;
+    width: 1px;
+    background: var(--border);
+}
+
+.timeline-item.last::before { display: none; }
+
+.tl-year {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--magic);
+    min-width: 40px;
+    padding-top: 4px;
+}
+
+.tl-dot {
+    width: 8px; height: 8px;
+    border-radius: 0;
+    background: var(--blood);
+    flex-shrink: 0;
+    margin-top: 5px;
+    position: relative; z-index: 1;
+}
+
+.tl-dot--magic { background: var(--magic); }
+
+.tl-text {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--text-muted);
+}
+
+/* ============================================================
+   QUESTS
+============================================================ */
+.quests-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 18px;
+}
+
+.quest-card {
+    border: 1px solid var(--border);
+    padding: 26px;
+    background: var(--stone);
+    position: relative; overflow: hidden;
+    transition: border-color 0.25s, transform 0.25s;
+}
+
+.quest-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 2px; height: 0;
+    background: var(--magic);
+    transition: height 0.4s steps(8);
+}
+
+.quest-card:hover { border-color: rgba(117,0,255,0.45); transform: translateY(-3px); }
+.quest-card:hover::before { height: 100%; }
+.quest-card--wip { border-style: dashed; opacity: 0.55; }
+
+.quest-badge {
+    font-family: var(--font-ui);
+    font-size: 0.36rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    display: inline-block;
+    margin-bottom: 12px;
+}
+
+.quest-badge--done { background: rgba(204,0,0,0.1);   color: var(--blood);      border: 1px solid rgba(204,0,0,0.25); }
+.quest-badge--wip  { background: rgba(117,0,255,0.1); color: var(--magic-hover); border: 1px solid rgba(117,0,255,0.25); }
+
+.quest-title {
+    font-family: var(--font-title);
+    font-size: 1.4rem;
+    color: var(--text);
+    margin-bottom: 8px; line-height: 1.1;
+}
+
+.quest-desc {
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+}
+
+.quest-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.quest-tag {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    padding: 2px 7px;
+}
+
+.quest-links { display: flex; gap: 12px; margin-top: 14px; }
+
+.quest-link {
+    font-family: var(--font-title);
+    font-size: 0.7rem;
+    color: var(--magic-hover);
+    text-decoration: none;
+    transition: color 0.15s;
+}
+
+.quest-link:hover { color: var(--text); }
+
+/* ============================================================
+   ARSENAL
+============================================================ */
+.arsenal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+}
+
+.skill-rune {
+    border: 1px solid var(--border);
+    padding: 20px;
+    background: var(--stone);
+    transition: border-color 0.25s;
+}
+
+.skill-rune:hover { border-color: rgba(117,0,255,0.3); }
+
+.rune-name {
+    font-family: var(--font-title);
+    font-size: 0.88rem;
+    color: var(--text);
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.rune-bar-track {
+    height: 3px;
+    background: var(--border);
+    margin-bottom: 8px;
+    overflow: hidden;
+}
+
+.rune-bar-fill {
+    height: 100%;
+    background: var(--magic);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1.1s cubic-bezier(0.25,1,0.5,1);
+}
+
+.rune-lore {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-style: italic;
+    line-height: 1.5;
+}
+
+/* ============================================================
+   GRIMORIO
+============================================================ */
+.grimorio-section {
+    background: var(--stone);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 88px 0;
+}
+
+.grimorio-section .dungeon-section { padding-top: 0; padding-bottom: 0; }
+
+.grimorio-banner { margin-bottom: 44px; }
+
+.grimorio-eyebrow {
+    font-family: var(--font-ui);
+    font-size: 0.38rem;
+    color: var(--blood);
+    letter-spacing: 0.15em;
+    display: block;
+    margin-bottom: 12px;
+    opacity: 0.8;
+}
+
+.grimorio-sub {
+    font-family: var(--font-title);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: -36px;
+    margin-bottom: 0;
+}
+
+.grimorio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 18px;
+    margin-bottom: 36px;
+}
+
+.grimorio-entry {
+    border: 1px solid var(--border);
+    padding: 24px;
+    background: var(--stone-mid);
+    cursor: none;
+    transition: border-color 0.25s;
+    text-decoration: none;
+    display: block;
+    color: inherit;
+}
+
+.grimorio-entry:hover { border-color: rgba(204,0,0,0.35); }
+
+.entry-date {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--blood);
+    margin-bottom: 10px;
+    display: block;
+}
+
+.entry-title {
+    font-family: var(--font-title);
+    font-size: 1.2rem;
+    color: var(--text);
+    margin-bottom: 8px; line-height: 1.15;
+}
+
+.entry-excerpt {
+    font-size: 0.87rem;
+    line-height: 1.75;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.grimorio-footer { text-align: center; }
+
+.grimorio-noctis-link {
+    display: inline-block;
+    font-family: var(--font-title);
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    padding: 10px 22px;
+    text-decoration: none;
+    letter-spacing: 0.12em;
+    transition: all 0.25s;
+}
+
+.grimorio-noctis-link:hover { color: var(--text); border-color: var(--blood); }
+
+/* ============================================================
+   CONTACTO
+============================================================ */
+.scroll-inner {
+    max-width: 540px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.scroll-subtitle {
+    font-size: 0.98rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 40px;
+    font-style: italic;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    text-align: left;
+}
+
+.form-group { display: flex; flex-direction: column; gap: 5px; }
+
+.form-label {
+    font-family: var(--font-title);
+    font-size: 0.68rem;
+    color: var(--blood);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.form-input, .form-textarea {
+    background: var(--stone);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 0.94rem;
+    padding: 10px 13px;
+    outline: none;
+    transition: border-color 0.25s;
+    width: 100%;
+    border-radius: 0;
+    resize: vertical;
+}
+
+.form-input:focus, .form-textarea:focus { border-color: var(--magic); }
+.form-textarea { min-height: 120px; }
+
+.form-submit { align-self: center; margin-top: 6px; }
+
+.form-feedback {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--magic-hover);
+    text-align: center;
+    min-height: 1.2em;
+    letter-spacing: 0.1em;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    margin-top: 40px;
+}
+
+.social-link {
+    font-family: var(--font-title);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    transition: color 0.2s;
+}
+
+.social-link:hover { color: var(--magic-hover); }
+
+/* ============================================================
+   REVEAL — Animación de entrada por scroll
+============================================================ */
+.reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.7s steps(7), transform 0.7s steps(7);
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}

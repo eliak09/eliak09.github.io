@@ -1,0 +1,46 @@
+/* ============================================================
+   AZÚL ALCATRAZ — El Calabozo
+   animations.css · Todos los @keyframes del proyecto
+   Noctis Poenam · MMXXVI
+============================================================ */
+
+@keyframes lock-pulse {
+    0%, 100% { opacity: 0.5; }
+    50%       { opacity: 1; }
+}
+
+@keyframes glow-flicker {
+    0%   { opacity: 0.6; transform: translateX(-50%) scale(1);    }
+    30%  { opacity: 1.0; transform: translateX(-50%) scale(1.12); }
+    60%  { opacity: 0.7; transform: translateX(-50%) scale(0.95); }
+    100% { opacity: 0.9; transform: translateX(-50%) scale(1.08); }
+}
+
+@keyframes btn-idle {
+    0%, 100% { box-shadow: 0 0 8px  var(--magic-glow), inset 0 0 6px  rgba(117,0,255,0.1); }
+    50%       { box-shadow: 0 0 22px var(--magic-glow), inset 0 0 14px rgba(117,0,255,0.2); }
+}
+
+@keyframes hero-glitch {
+    0%,93%,100% { text-shadow: 0 0 80px rgba(117,0,255,0.15), 0 4px 0 #000; transform: translate(0); }
+    94% { text-shadow: -2px 0 #CC0000, 2px 0 #7500FF; transform: translate(-2px, 0); }
+    95% { text-shadow:  2px 0 #CC0000,-2px 0 #7500FF; transform: translate(2px, 0); }
+    96% { text-shadow: 0 0 80px rgba(117,0,255,0.15), 0 4px 0 #000; transform: translate(0); }
+}
+
+@keyframes scan-line {
+    0%   { left: -40%; }
+    100% { left: 140%; }
+}
+
+@keyframes crt-blink {
+    0%, 90%, 100% { opacity: 1; }
+    92%           { opacity: 0; }
+    94%           { opacity: 1; }
+    96%           { opacity: 0; }
+    98%           { opacity: 1; }
+}
+
+@keyframes reveal-up {
+    to { opacity: 1; transform: translateY(0); }
+}
