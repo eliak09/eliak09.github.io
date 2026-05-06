@@ -16,10 +16,9 @@
     --text:         #E0DCCC;
     --text-muted:   #6a6860;
     --border:       #242420;
-    /* Mantiene compatibilidad con las referencias a --text-primary en v2 */
     --text-primary: #E0DCCC;
     --font-hero:    'Jacquard 24', serif;
-    --font-title:   'MedievalSharp', cursive;
+    --font-title:   'MedievalSharp', serif;
     --font-body:    'Space Grotesk', sans-serif;
     --font-ui:      'Press Start 2P', monospace;
     --font-mono:    'JetBrains Mono', monospace;

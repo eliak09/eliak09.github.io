@@ -136,6 +136,20 @@
     text-align: center;
 }
 
+/*.color-enfatizer {
+    color: var(--blood);
+}
+*/
+
+.hero-contact {
+  font-family: var(--font-hero);
+  font-size: clamp(2.2rem, 1.5vw, 0.90rem);
+  color: var(--text);
+  letter-spacing: default;
+  margin-bottom: 12px;
+  display: block;
+}
+
 .hero-tagline strong { color: var(--text); }
 
 .content-body {
@@ -149,10 +163,10 @@
 
 /* Divisor pixelado con animación de scan */
 .pixel-divider {
-    width: 515px;
+    width: 538px;
     height: 4px;
     background: var(--blood);
-    margin: 20px auto 28px;
+    margin: 4px auto 4px;
     position: relative;
     overflow: hidden;
 }
